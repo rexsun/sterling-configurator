@@ -5,7 +5,7 @@ import { ConnectedRouter } from "react-router-redux";
 import { HashRouter } from "react-router-dom";
 import createHistory from "history/createHashHistory";
 
-import App from "./containers/App";
+import App from "containers/App";
 import configureStore from "./configureStore";
 import "./styles.css";
 
@@ -15,7 +15,7 @@ const history = createHistory();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById("root");
 
-(() => {
+const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
@@ -26,4 +26,4 @@ const MOUNT_NODE = document.getElementById("root");
     </Provider>,
     MOUNT_NODE
   );
-})();
+};
