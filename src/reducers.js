@@ -1,11 +1,15 @@
-import _ from "lodash";
-import { combineReducers } from "redux";
+import { combineReducers } from "redux-immutable";
+import { fromJS } from "immutable";
 import { LOCATION_CHANGE } from "react-router-redux";
 
-export function routeReducer(state = { location: null }, action) {
+const routeInitialState = fromJS({
+  location: null
+});
+
+export function routeReducer(state = routeInitialState, action) {
   switch (action.type) {
     case LOCATION_CHANGE:
-      return _.merge(state, {
+      return state.merge({
         location: action.payload
       });
     default:

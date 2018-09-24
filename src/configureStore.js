@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, compose } from "redux";
+import { fromJS } from "immutable";
 import { routerMiddleware } from "react-router-redux";
 import createReducer from "./reducers";
 
@@ -9,9 +10,13 @@ export default function configureStore(initialState = {}, history) {
 
   const composeEnhancers = compose;
 
-  const store = createStore(createReducer(), composeEnhancers(...enhancers));
+  const store = createStore(
+    createReducer(),
+    fromJS(initialState),
+    composeEnhancers(...enhancers)
+  );
 
-  store.injectedReducers = {};
+  store.injectedReducers = {}; // Reducer registry
 
   if (module.hot) {
     module.hot.accept("./reducers", () => {

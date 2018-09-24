@@ -4,11 +4,12 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import NotFoundPage from "../NotFound/Loadable";
 
 import { routes, routesMap, ROUTE_STEP_01 } from "../../constant/route";
-import LoadingScreen from "../../components/LoadingScreen";
+import LoadingScreen from "../Loading";
 
 export default function App() {
   return (
     <div class="sterling-configurator">
+      <LoadingScreen />
       <Switch>
         <Route
           exact

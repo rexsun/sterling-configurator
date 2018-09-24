@@ -1,11 +1,11 @@
-import invariant from 'invariant';
-import isEmpty from 'lodash/isEmpty';
-import isFunction from 'lodash/isFunction';
-import isString from 'lodash/isString';
+import invariant from "invariant";
+import isEmpty from "lodash/isEmpty";
+import isFunction from "lodash/isFunction";
+import isString from "lodash/isString";
 
-import createReducer from 'reducers';
+import createReducer from "../reducers";
 
-import checkStore from './checkStore';
+import checkStore from "./checkStore";
 
 export function injectReducerFactory(store, isValid) {
   return function injectReducer(key, reducer) {
@@ -13,7 +13,7 @@ export function injectReducerFactory(store, isValid) {
 
     invariant(
       isString(key) && !isEmpty(key) && isFunction(reducer),
-      '(app/utils...) injectReducer: Expected `reducer` to be a reducer function',
+      "(app/utils...) injectReducer: Expected `reducer` to be a reducer function"
     );
 
     if (
@@ -31,6 +31,6 @@ export default function getInjectors(store) {
   checkStore(store);
 
   return {
-    injectReducer: injectReducerFactory(store, true),
+    injectReducer: injectReducerFactory(store, true)
   };
 }

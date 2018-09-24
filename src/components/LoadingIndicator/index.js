@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-// @TODO: the performance of MUI circular progress is bad. need to find another solution
 import Circle from "./Circle";
+import Wrapper from "./Wrapper";
 
 const LoadingIndicator = props => {
   const { error, size } = props;
@@ -9,9 +9,20 @@ const LoadingIndicator = props => {
   // eslint-disable-next-line no-console
   if (error) console.error(error);
   return (
-    <div style={`width: ${size}px; height: ${size}px`}>
+    <Wrapper width={size} height={size}>
       <Circle />
-    </div>
+      <Circle rotate={30} delay={-1.1} />
+      <Circle rotate={60} delay={-1} />
+      <Circle rotate={90} delay={-0.9} />
+      <Circle rotate={120} delay={-0.8} />
+      <Circle rotate={150} delay={-0.7} />
+      <Circle rotate={180} delay={-0.6} />
+      <Circle rotate={210} delay={-0.5} />
+      <Circle rotate={240} delay={-0.4} />
+      <Circle rotate={270} delay={-0.3} />
+      <Circle rotate={300} delay={-0.2} />
+      <Circle rotate={330} delay={-0.1} />
+    </Wrapper>
   );
 };
 

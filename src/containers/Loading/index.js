@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
-import LoadingScreen from "components/LoadingScreen";
+import LoadingScreen from "../../components/LoadingScreen";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
 
-import injectReducer from "utils/injectReducer";
+import injectReducer from "../../utils/injectReducer";
 
 import reducer, { localState } from "./reducer";
 
