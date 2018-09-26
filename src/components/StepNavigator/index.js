@@ -4,6 +4,10 @@ import React from "react";
 const StepNavigator = props => {
   const { step } = props;
 
+  if (step < 1 || step > 4) {
+    return null;
+  }
+
   return (
     <div className="row">
       <div className="col-md-12">

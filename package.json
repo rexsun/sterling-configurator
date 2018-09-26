@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "classnames": "2.2.5",
     "immutable": "3.8.2",
     "immutability-helper": "2.7.1",
     "history": "4.7.2",
