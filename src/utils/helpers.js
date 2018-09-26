@@ -1,4 +1,4 @@
-import { List } from 'immutable';
+import { List } from "immutable";
 
 export function createReducer(initialState, handlers) {
   return function reducer(state = initialState, action) {
@@ -11,22 +11,33 @@ export function createReducer(initialState, handlers) {
 
 export function isDataDirty(formList, initialList) {
   const dirtyValues = formList
-    .map((values, index) => values.set('formValuesIndex', index)) // We make form changes immediately for responsiveness, but need this to revert them in the unlikely event of a service failure
+    .map((values, index) => values.set("formValuesIndex", index))
     .filter((values, index) => {
       const emptyValue = values.size <= 1;
-      const newValue = typeof values.get('id') === 'undefined';
+      const newValue = typeof values.get("id") === "undefined";
       let initialVersion;
       if (!newValue) {
         initialVersion = initialList
           .find(
-            initialValue => initialValue.get('id') === values.get('id'),
+            initialValue => initialValue.get("id") === values.get("id"),
             undefined,
-            new List(),
+            new List()
           )
-          .set('formValuesIndex', index);
+          .set("formValuesIndex", index);
       }
 
       return !emptyValue && (newValue || !values.equals(initialVersion));
     });
   return dirtyValues;
+}
+
+export function randomString(
+  length,
+  chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+) {
+  var result = "";
+  for (var i = length; i > 0; --i) {
+    result += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return result;
 }

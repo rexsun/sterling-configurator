@@ -1,20 +1,21 @@
 import immutable from "immutability-helper";
 import { createReducer } from "../../utils/helpers";
-import { SETLOADINGSTATUS } from "./constants";
+import { SETCURRENTSTEP } from "./constants";
 
 export const localState = {
-  isLoading: ""
+  currentStep: 2,
+  configuration: {}
 };
 
 const reducer = createReducer(localState, {
-  [SETLOADINGSTATUS.SUCCESS](state, { payload }) {
+  [SETCURRENTSTEP.SUCCESS](state, { payload }) {
     return immutable(state, {
-      isLoading: { $set: payload.loading }
+      currentStep: { $set: payload.step }
     });
   },
-  [SETLOADINGSTATUS.FAILURE](state, { payload }) {
+  [SETCURRENTSTEP.FAILURE](state, { payload }) {
     return immutable(state, {
-      isLoading: { $set: payload.loading }
+      currentStep: { $set: payload.step }
     });
   }
 });

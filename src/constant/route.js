@@ -1,14 +1,32 @@
 import _ from "lodash";
-import Options from "../containers/Options/Loadable";
 import Loading from "../containers/Loading";
+import ConfigureOptions from "../containers/ConfigureOptions/Loadable";
+import ConfigurePackages from "../containers/ConfigurePackages/Loadable";
+import ConfigureAgreements from "../containers/ConfigureAgreements/Loadable";
+import ConfigureSecrets from "../containers/ConfigureSecrets/Loadable";
 
 export const ROUTE_STEP_01 = "step1";
+export const ROUTE_STEP_02 = "step2";
+export const ROUTE_STEP_03 = "step3";
+export const ROUTE_STEP_04 = "step4";
 export const ROUTE_LOADING = "loading";
 
 export const routes = {
   [ROUTE_STEP_01]: {
     path: "/step1",
-    component: Options
+    component: ConfigureOptions
+  },
+  [ROUTE_STEP_02]: {
+    path: "/step2",
+    component: ConfigurePackages
+  },
+  [ROUTE_STEP_03]: {
+    path: "/step3",
+    component: ConfigureAgreements
+  },
+  [ROUTE_STEP_04]: {
+    path: "/step4",
+    component: ConfigureSecrets
   },
   [ROUTE_LOADING]: {
     path: "/loading",
@@ -16,4 +34,6 @@ export const routes = {
   }
 };
 
-export const routesMap = _.map(routes, (val, key) => _.get(routes, [key], {}));
+export const routesMap = _.mapValues(routes, (val, key) =>
+  _.get(routes, [key], {})
+);

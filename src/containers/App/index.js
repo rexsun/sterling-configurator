@@ -8,7 +8,7 @@ import LoadingScreen from "../Loading";
 
 export default function App() {
   return (
-    <div class="sterling-configurator">
+    <div className="sterling-configurator">
       <LoadingScreen />
       <Switch>
         <Route

@@ -1,10 +1,12 @@
-export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
-export const DAEMON = '@@saga-injector/daemon';
-export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
+import _ from "lodash";
 
 export function createConstants(base) {
-  return ['REQUEST', 'SUCCESS', 'FAILURE'].reduce((acc, type) => {
-    acc[type] = `${base}_${type}`;
-    return acc;
-  }, {});
+  return _.reduce(
+    ["REQUEST", "SUCCESS", "FAILURE"],
+    (map, val) => {
+      _.set(map, val, `${base}_${val}`);
+      return map;
+    },
+    {}
+  );
 }
