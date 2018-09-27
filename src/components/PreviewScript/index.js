@@ -27,6 +27,11 @@ const component = styled.pre`
 
   &.loaded:before {
     transform: scaleY(1);
+    transition: none;
+  }
+
+  &.loading:before {
+    transform: scaleY(1);
   }
 `;
 

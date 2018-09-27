@@ -26,7 +26,7 @@ export class container extends React.PureComponent {
     const self = this;
 
     self.state = {
-      activeTab: "0"
+      activeTab: "1"
     };
 
     self.do$selectTab = idx => {

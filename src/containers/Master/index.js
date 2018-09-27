@@ -5,6 +5,7 @@ import Btn from "../../components/Btn";
 import PreviewWidgets from "../../components/PreviewWidgets";
 import PageHeaderLabel from "../../components/PageHeaderLabel";
 import StepNavigator from "../../components/StepNavigator";
+import LogoBar from "../../components/LogoBar";
 
 export default class Master extends React.PureComponent {
   render() {
@@ -61,6 +62,11 @@ export default class Master extends React.PureComponent {
           </div>
           <div className="col-md-6 col-xs-12">
             <PreviewWidgets />
+          </div>
+        </div>
+        <div className="row mt-2">
+          <div className="col-md-12">
+            <LogoBar />
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 
 import PreviewScript from "../PreviewScript";
-import LogoBar from "../LogoBar";
+import Btn from "../Btn";
 import PageHeaderLabel from "../../components/PageHeaderLabel";
 
 const items = [
@@ -76,6 +76,44 @@ function initWidget() {
 <script src="http://dev.app.sterling.io/js/sterling.js?callback=initWidget"></script>
 `);
 
+const widgetImageHost =
+  "https://www.sterlingnow.io/wp-content/uploads/2018/09/";
+const widgetImages = {
+  "1": [
+    {
+      src: "widget-WF-AC-page-1.png"
+    },
+    {
+      src: "widget-WF-AC-page-2.png"
+    },
+    {
+      src: "widget-WF-AC-page-3.png"
+    },
+    {
+      src: "widget-WF-AC-page-4.png"
+    },
+    {
+      src: "widget-WF-AC-page-5.png"
+    }
+  ],
+  "2": [
+    {
+      src: "widget-WF-SS-page-1.png"
+    },
+    {
+      src: "widget-WF-SS-page-2.png"
+    },
+    {
+      src: "widget-WF-SS-page-3.png"
+    }
+  ],
+  "3": [
+    {
+      src: "widget-WF-RR-page-1.png"
+    }
+  ]
+};
+
 const StretchedDropDown = styled.div`
   & .dropdown-toggle {
     width: 100%;
@@ -91,6 +129,31 @@ const StretchedDropDown = styled.div`
     width: 100%;
   }
 `;
+
+function renderSlide(dom, photos) {
+  const domId = _.get(dom, [0, "id"], "");
+  if (!!domId && !_.isEmpty(photos)) {
+    const domWidth = dom.width();
+    const domHeight = "600";
+    const images = _
+      .map(
+        photos,
+        o => `<div><img data-u="image" src="${widgetImageHost}${o.src}"/></div>`
+      )
+      .join("");
+    const html = `
+      <div id="${domId}_slide" class="slide-container" style="width:${domWidth}px;height:${domHeight}px;">
+        <div class="slide-item" data-u="slides" style="position:absolute;top:0px;left:0px;width:${domWidth}px;height:${domHeight}px;overflow:hidden;">
+        ${images}
+        </div>
+        <div class="jssora02l" data-u="arrowleft"></div>
+        <div class="jssora02r" data-u="arrowright"></div>
+      </div>`;
+    dom.html(html);
+    return true;
+  }
+  return false;
+}
 
 export default class PreviewWidgets extends React.PureComponent {
   constructor(props) {
@@ -122,22 +185,45 @@ export default class PreviewWidgets extends React.PureComponent {
       }));
     };
 
-    self.do$loadScript = _.throttle(() => {
+    self.do$loadScript = _.throttle(cls => {
       const idx = _.get(self.state, "selectedIndex", "1");
       const dom = $(`#code_review_${idx}`);
       dom.removeClass("loaded");
+      dom.removeClass("loading");
       setTimeout(() => {
-        dom.addClass("loaded");
-      }, 200);
+        dom.addClass(cls);
+      }, 100);
     }, 300);
+
+    self.do$initSlider = _.throttle(() => {
+      const idx = _.get(self.state, "selectedIndex", "1");
+      const inited = renderSlide(
+        $(`#widget_review_${idx}`),
+        _.get(widgetImages, [idx], [])
+      );
+      const options = {
+        $AutoPlay: false,
+        $FillMode: 5,
+        $ArrowNavigatorOptions: {
+          $Class: $JssorArrowNavigator$,
+          $ChanceToShow: 2,
+          $AutoCenter: 2
+        }
+      };
+      !!inited &&
+        setTimeout(() => {
+          new $JssorSlider$(`widget_review_${idx}_slide`, options);
+        }, 200);
+    }, 500);
   }
 
   componentDidMount() {
-    this.do$loadScript();
+    this.do$loadScript("loaded");
   }
 
   componentDidUpdate() {
-    this.do$loadScript();
+    this.do$loadScript("loading");
+    this.do$initSlider();
   }
 
   renderDropDown(self) {
@@ -207,7 +293,7 @@ export default class PreviewWidgets extends React.PureComponent {
         <div className="row">
           <div className="col-md-12">
             <div className="text-center">
-              <button
+              <Btn
                 className={classnames({
                   btn: true,
                   "btn-info": widgetView,
@@ -217,14 +303,20 @@ export default class PreviewWidgets extends React.PureComponent {
                 onClick={self.do$toggleView}
               >
                 {!widgetView ? "SCRIPT PREVIEW" : "WIDGET PREVIEW"}
-              </button>
+              </Btn>
             </div>
             {!widgetView ? (
               <PreviewScript id={`code_review_${tabKey}`} className="mt-3">
                 {scriptTemplate(_.get(items, [selectedIndex, "params"], {}))}
               </PreviewScript>
             ) : (
-              <h4 className="text-center">WIDGET PREVIEW</h4>
+              <div>
+                <h4 className="text-center mt-3">WIDGET PREVIEW</h4>
+                <div
+                  id={`widget_review_${tabKey}`}
+                  className="slide-injector"
+                />
+              </div>
             )}
           </div>
         </div>
@@ -244,9 +336,6 @@ export default class PreviewWidgets extends React.PureComponent {
           <div className="col-md-12 mt-2">
             {/*self.renderDropDown(self)*/}
             {self.renderTabContents(self)}
-          </div>
-          <div className="col-md-12 mt-2">
-            <LogoBar />
           </div>
         </div>
       </div>
