@@ -11,12 +11,12 @@ import {
   TabPane,
   Nav,
   NavItem,
-  NavLink,
-  Row,
-  Col
+  NavLink
 } from "reactstrap";
 
 import PreviewScript from "../PreviewScript";
+import LogoBar from "../LogoBar";
+import PageHeaderLabel from "../../components/PageHeaderLabel";
 
 const items = [
   { text: "Select a workflow" },
@@ -77,19 +77,19 @@ function initWidget() {
 `);
 
 const StretchedDropDown = styled.div`
-& .dropdown-toggle {
-width: 100%;
-text-align: left;
- &::after {
-   position: absolute;
-   top: 18px;
-   right: 8px;
- }
-}
+  & .dropdown-toggle {
+    width: 100%;
+    text-align: left;
+    &::after {
+      position: absolute;
+      top: 18px;
+      right: 8px;
+    }
+  }
 
-& .dropdown-menu {
-  width: 100%;
-}
+  & .dropdown-menu {
+    width: 100%;
+  }
 `;
 
 export default class PreviewWidgets extends React.PureComponent {
@@ -121,6 +121,23 @@ export default class PreviewWidgets extends React.PureComponent {
         widgetView: !prevState.widgetView
       }));
     };
+
+    self.do$loadScript = _.throttle(() => {
+      const idx = _.get(self.state, "selectedIndex", "1");
+      const dom = $(`#code_review_${idx}`);
+      dom.removeClass("loaded");
+      setTimeout(() => {
+        dom.addClass("loaded");
+      }, 200);
+    }, 300);
+  }
+
+  componentDidMount() {
+    this.do$loadScript();
+  }
+
+  componentDidUpdate() {
+    this.do$loadScript();
   }
 
   renderDropDown(self) {
@@ -152,62 +169,66 @@ export default class PreviewWidgets extends React.PureComponent {
     );
   }
 
-  renderTabs(self) {
+  renderTabHeads(self) {
     const { selectedIndex } = self.state;
     return (
-      <div>
-        <Nav pills justified>
-          {_.map(
-            items,
-            (o, i) =>
-              !i ? null : (
-                <NavItem>
-                  <NavLink
-                    className={classnames({ active: selectedIndex === i })}
-                    onClick={_.partial(self.do$select, i)}
-                  >
-                    {o.text}
-                  </NavLink>
-                </NavItem>
-              )
-          )}
-        </Nav>
-        <TabContent activeTab={selectedIndex + ""}>
-          <TabPane tabId="1">{self.renderPreview(self)}</TabPane>
-          <TabPane tabId="2">{self.renderPreview(self)}</TabPane>
-          <TabPane tabId="3">{self.renderPreview(self)}</TabPane>
-        </TabContent>
-      </div>
+      <Nav pills justified>
+        {_.map(
+          items,
+          (o, i) =>
+            !i ? null : (
+              <NavItem key={`previewtab_${i}`}>
+                <NavLink
+                  className={classnames({ active: selectedIndex === i })}
+                  onClick={_.partial(self.do$select, i)}
+                >
+                  {o.text}
+                </NavLink>
+              </NavItem>
+            )
+        )}
+      </Nav>
     );
   }
 
-  renderPreview(self) {
+  renderTabContents(self) {
+    const { selectedIndex } = self.state;
+    return (
+      <TabContent activeTab={selectedIndex + ""}>
+        {_.map(["1", "2", "3"], (o, i) => self.renderPreview(self, o))}
+      </TabContent>
+    );
+  }
+
+  renderPreview(self, tabKey) {
     const { widgetView, selectedIndex } = self.state;
     return (
-      <div className="row mt-3">
-        <div className="col-md-12">
-          <div className="text-center">
-            <button
-              className={classnames({
-                btn: true,
-                "btn-info": widgetView,
-                "btn-success": !widgetView
-              })}
-              style={{ width: "100%" }}
-              onClick={self.do$toggleView}
-            >
-              {!widgetView ? "SCRIPT PREVIEW" : "WIDGET PREVIEW"}
-            </button>
+      <TabPane key={`preview_${tabKey}`} tabId={tabKey}>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="text-center">
+              <button
+                className={classnames({
+                  btn: true,
+                  "btn-info": widgetView,
+                  "btn-success": !widgetView
+                })}
+                style={{ width: "100%" }}
+                onClick={self.do$toggleView}
+              >
+                {!widgetView ? "SCRIPT PREVIEW" : "WIDGET PREVIEW"}
+              </button>
+            </div>
+            {!widgetView ? (
+              <PreviewScript id={`code_review_${tabKey}`} className="mt-3">
+                {scriptTemplate(_.get(items, [selectedIndex, "params"], {}))}
+              </PreviewScript>
+            ) : (
+              <h4 className="text-center">WIDGET PREVIEW</h4>
+            )}
           </div>
-          {!widgetView ? (
-            <PreviewScript className="mt-3">
-              {scriptTemplate(_.get(items, [selectedIndex, "params"], {}))}
-            </PreviewScript>
-          ) : (
-            <h4 className="text-center">WIDGET PREVIEW</h4>
-          )}
         </div>
-      </div>
+      </TabPane>
     );
   }
 
@@ -216,12 +237,16 @@ export default class PreviewWidgets extends React.PureComponent {
     return (
       <div>
         <div className="row">
-          <div className="col-md-12 mt-3">
-            <h1 className="text-center">Preview</h1>
+          <div className="col-md-12 mt-3 mb-2">{self.renderTabHeads(self)}</div>
+          <div className="col-md-12 mt-2">
+            <PageHeaderLabel className="gray" text="Workflow Preview" />
           </div>
           <div className="col-md-12 mt-2">
-            {//self.renderDropDown(self)
-            self.renderTabs(self)}
+            {/*self.renderDropDown(self)*/}
+            {self.renderTabContents(self)}
+          </div>
+          <div className="col-md-12 mt-2">
+            <LogoBar />
           </div>
         </div>
       </div>

@@ -1,5 +1,12 @@
 import _ from "lodash";
 import React from "react";
+import classnames from "classnames";
+import styled from "styled-components";
+
+const StepLabel = styled.span`
+  font-size: 20px;
+  line-height: 24px;
+`;
 
 const StepNavigator = props => {
   const { step } = props;
@@ -15,12 +22,12 @@ const StepNavigator = props => {
           {_.map([1, 2, 3, 4], (val, idx) => (
             <li className="nav-item" key={"step" + val}>
               <a
-                className={
-                  "nav-link" + (idx + 1 === step ? " active disabled" : "")
-                }
+                className={classnames("nav-link", {
+                  "active disabled": idx + 1 === step
+                })}
                 href={"#step" + val}
               >
-                {val}
+                <StepLabel>{val}</StepLabel>
               </a>
             </li>
           ))}

@@ -18,7 +18,6 @@ import reducer, { localState } from "./reducer";
 import * as actions from "./actions";
 
 import Master from "../Master";
-import StepNavigator from "../../components/StepNavigator";
 
 export class container extends React.PureComponent {
   constructor(props) {
@@ -45,7 +44,7 @@ export class container extends React.PureComponent {
         <span className="pr-2">
           <i
             className={
-              "far fa-check-circle " + (!muted ? "text-primary" : "text-muted")
+              "far fa-check-circle " + (!muted ? "text-orange" : "text-muted")
             }
           />
         </span>
@@ -54,93 +53,92 @@ export class container extends React.PureComponent {
     );
   }
 
+  renderPackage(self, idx, text) {
+    const { activeTab } = self.state;
+    const idxKey = idx + "";
+    const isActive = activeTab === idxKey;
+    return (
+      <NavItem key={`package_${idxKey}`}>
+        <NavLink
+          className={classnames("special py-4", {
+            active: isActive,
+            "ml-2": !!idx
+          })}
+          onClick={_.partial(self.do$selectTab, idxKey)}
+        >
+          {text}
+        </NavLink>
+        <div
+          className={classnames("tooltip bs-tooltip-top", {
+            show: isActive
+          })}
+        >
+          <div className="arrow" />
+        </div>
+        <div
+          className={classnames("tooltip bs-tooltip-bottom", {
+            show: isActive
+          })}
+        >
+          <div className="arrow" />
+        </div>
+      </NavItem>
+    );
+  }
+
+  renderPackageDetails(self, idx, items) {
+    const idxKey = idx + "";
+    return (
+      <TabPane key={`package_detail_${idxKey}`} tabId={idxKey}>
+        <Row>
+          <Col md="12">
+            <div className="pb-3">
+              {_.map(items, (o, i) => self.renderDetailedItem(o, `basic_${i}`))}
+            </div>
+          </Col>
+        </Row>
+      </TabPane>
+    );
+  }
+
   renderPackages(self) {
     const { activeTab } = self.state;
     return (
       <div>
         <Nav pills justified>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: activeTab === "0" })}
-              onClick={_.partial(self.do$selectTab, "0")}
-            >
-              Basic
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: activeTab === "1" })}
-              onClick={_.partial(self.do$selectTab, "1")}
-            >
-              Preferred
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({ active: activeTab === "2" })}
-              onClick={_.partial(self.do$selectTab, "2")}
-            >
-              Pro
-            </NavLink>
-          </NavItem>
+          {_.map(["Basic", "Preferred", "Pro"], (o, i) =>
+            self.renderPackage(self, i, o)
+          )}
         </Nav>
         <TabContent activeTab={activeTab}>
-          <TabPane tabId="0">
-            <Row>
-              <Col md="12">
-                <div className="py-3">
-                  {_.map(
-                    [
-                      "Social Security Number Trace",
-                      "Current County Criminal Record Search",
-                      "National Criminal Database Search",
-                      "DOJ Sex Offender"
-                    ],
-                    (o, i) => self.renderDetailedItem(o, `basic_${i}`)
-                  )}
-                </div>
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tabId="1">
-            <Row>
-              <Col md="12">
-                <div className="py-3">
-                  {_.map(
-                    [
-                      "Social Security Number Trace",
-                      "7-Year County Criminal Search",
-                      "National Criminal Database Search",
-                      "DOJ Sex Offender",
-                      "Current Federal Criminal Record Search",
-                      "Terrorist Watch List (OFAC)"
-                    ],
-                    (o, i) => self.renderDetailedItem(o, `preferred_${i}`)
-                  )}
-                </div>
-              </Col>
-            </Row>
-          </TabPane>
-          <TabPane tabId="2">
-            <Row>
-              <Col md="12">
-                <div className="py-3">
-                  {_.map(
-                    [
-                      "Social Security Number Trace",
-                      "7-Year County Criminal Record Search",
-                      "National Criminal Database Search",
-                      "DOJ Sex Offender",
-                      "Terrorist Watch List (OFAC)",
-                      "7-Year Federal District Criminal Record Search",
-                      "Locator Select"
-                    ],
-                    (o, i) => self.renderDetailedItem(o, `pro_${i}`)
-                  )}
-                </div>
-              </Col>
-            </Row>
-          </TabPane>
+          {_.map(
+            [
+              [
+                "Social Security Number Trace",
+                "Current County Criminal Record Search",
+                "National Criminal Database Search",
+                "DOJ Sex Offender"
+              ],
+              [
+                "Social Security Number Trace",
+                "7-Year County Criminal Search",
+                "National Criminal Database Search",
+                "DOJ Sex Offender",
+                "Current Federal Criminal Record Search",
+                "Terrorist Watch List (OFAC)"
+              ],
+              [
+                "Social Security Number Trace",
+                "7-Year County Criminal Record Search",
+                "National Criminal Database Search",
+                "DOJ Sex Offender",
+                "Terrorist Watch List (OFAC)",
+                "7-Year Federal District Criminal Record Search",
+                "Locator Select"
+              ]
+            ],
+            (o, i) => self.renderPackageDetails(self, i, o)
+          )}
         </TabContent>
       </div>
     );
@@ -148,15 +146,15 @@ export class container extends React.PureComponent {
 
   renderDetailedItem(text, key) {
     const StyledWrapper = styled.div`
-  background: #F5F5F5;
-  padding: 10px 15px;
-  margin-bottom: 2px;
-`;
+      background: #f5f5f5;
+      padding: 10px 15px;
+      margin-bottom: 2px;
+    `;
     return (
       <div key={key}>
         <StyledWrapper>
           <span className="pr-2">
-            <i class="fas fa-check-circle text-primary" />
+            <i class="fas fa-check-circle text-orange" />
           </span>
           <span className="text-dark">{text}</span>
         </StyledWrapper>

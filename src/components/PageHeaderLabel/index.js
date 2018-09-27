@@ -11,13 +11,18 @@ const StyledWrapper = styled.div`
     font-size: 1.4em;
     letter-spacing: 0.2em;
   }
+
+  &.gray .alert.alert-dark {
+    background-color: #b2b2b2;
+    color: black;
+  }
 `;
 
 const component = props => {
-  const { text } = props;
+  const { text, className } = props;
 
   return (
-    <StyledWrapper>
+    <StyledWrapper className={className}>
       <Alert color="dark">{text}</Alert>
     </StyledWrapper>
   );

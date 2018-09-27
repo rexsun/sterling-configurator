@@ -1,4 +1,79 @@
-.App {
-  font-family: sans-serif;
-  text-align: center;
+#root .sterling-configurator .text-orange {
+  color: #ff4700 !important;
+}
+
+#root .sterling-configurator .btn-orange {
+  color: white !important;
+  background-color: #ff4700 !important;
+}
+
+#root .sterling-configurator .text-lgray,
+#root .sterling-configurator .text-muted {
+  color: #bcbcbc !important;
+}
+
+#root .sterling-configurator .nav-link {
+  color: #bcbcbc;
+  cursor: pointer;
+}
+
+#root .sterling-configurator .nav-link.active {
+  color: #ff4700;
+  background-color: transparent;
+}
+
+#root .sterling-configurator .nav-link.special {
+  border-radius: 9px;
+  background-color: #666;
+  color: white;
+}
+
+#root .sterling-configurator .nav-link.special.active {
+  background-color: #ff4700;
+  position: relative;
+}
+
+#root .sterling-configurator .nav-item .tooltip {
+  position: relative;
+}
+
+#root .sterling-configurator .nav-item .tooltip.bs-tooltip-top .arrow {
+  position: relative;
+  margin: auto;
+  margin-top: -6px;
+}
+
+#root .sterling-configurator .nav-item .tooltip.bs-tooltip-bottom {
+  padding-bottom: 0;
+}
+
+#root .sterling-configurator .nav-item .tooltip.bs-tooltip-bottom .arrow {
+  position: relative;
+  margin: auto;
+  left: -5px;
+}
+
+#root .sterling-configurator .nav-item .tooltip.bs-tooltip-top .arrow::before {
+  border-top-color: #ff4700;
+  border-width: 10px 10px 0;
+}
+
+#root
+  .sterling-configurator
+  .nav-item
+  .tooltip.bs-tooltip-bottom
+  .arrow::before {
+  border-bottom-color: #f5f5f5;
+  border-width: 0 15px 15px;
+}
+
+#root .sterling-configurator input.form-control {
+  border-radius: 0;
+  border-width: 0;
+  background-color: #ededed;
+  color: #222;
+}
+
+#root .sterling-configurator input.form-control::placeholder {
+  color: #222;
 }

@@ -1,4 +1,7 @@
 import React from "react";
+import classnames from "classnames";
+
+import Btn from "../../components/Btn";
 import PreviewWidgets from "../../components/PreviewWidgets";
 import PageHeaderLabel from "../../components/PageHeaderLabel";
 import StepNavigator from "../../components/StepNavigator";
@@ -31,24 +34,27 @@ export default class Master extends React.PureComponent {
                 {!(currentStep > 4) ? (
                   <div>
                     {!!(currentStep - 1) && (
-                      <a
+                      <Btn
                         href={`/#/step${currentStep - 1}`}
                         className="btn btn-secondary"
                       >
                         &lt; BACK
-                      </a>
+                      </Btn>
                     )}
-                    <a
+                    <Btn
                       href={`/#/step${currentStep + 1}`}
-                      className="btn btn-primary ml-1"
+                      className={classnames("btn ml-1", {
+                        "btn-primary": !(currentStep === 4),
+                        "btn-orange": currentStep === 4
+                      })}
                     >
                       {!(currentStep === 4) ? "NEXT >" : "SUBMIT"}
-                    </a>
+                    </Btn>
                   </div>
                 ) : (
-                  <a href="/#/step1" className="btn btn-primary ml-1">
+                  <Btn href="/#/step1" className="btn btn-primary ml-1">
                     CREATE ANOHTER WIDGET
-                  </a>
+                  </Btn>
                 )}
               </div>
             </div>

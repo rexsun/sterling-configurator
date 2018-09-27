@@ -4,13 +4,12 @@ import styled from "styled-components";
 import { Input } from "reactstrap";
 
 import Master from "../Master";
-import StepNavigator from "../../components/StepNavigator";
 
 const FixedHeightContainer = styled.div`
-height: 330px;
-overflow: scroll;
-border: 2px solid #eee;
-padding: 20px;
+  height: 330px;
+  overflow: scroll;
+  border: 2px solid #eee;
+  padding: 20px;
 `;
 
 const container = () => {

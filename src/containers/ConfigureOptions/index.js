@@ -1,7 +1,8 @@
 import _ from "lodash";
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { Alert } from "reactstrap";
+import { UncontrolledTooltip } from "reactstrap";
+import styled from "styled-components";
 
 import reduxCompose from "../../utils/reduxCompose";
 import reducer, { localState } from "./reducer";
@@ -20,13 +21,27 @@ const defaultOptions = {
   },
   finterPrinting: {
     with: { text: "With Fingerprinting", selected: true },
-    no: { text: "No Finterprinting", selected: false }
+    no: { text: "No Fingerprinting", selected: false }
   },
   styling: {
     inherent: { text: "Inherent Styling", selected: false },
     custom: { text: "Custom Styling", selected: true }
   }
 };
+
+const helpContent = {
+  host: "Where do you want to host the code?",
+  pay: "How would you like to pay for the screenings?",
+  finterPrinting: "Would you like to include the FingerPrinting feature?",
+  styling: "How would you style the widgets?"
+};
+
+const ColorBlock = styled.div`
+  & .value {
+    background-color: #ededed;
+    padding: 10px 15px;
+  }
+`;
 
 export class container extends React.PureComponent {
   constructor(props) {
@@ -61,7 +76,7 @@ export class container extends React.PureComponent {
           _.mapValues(options, (val, key) => {
             return (
               <div className="row" key={`options_${key}`}>
-                <div className="col-md-10">
+                <div className="col-md-10 col-xs-10">
                   {_.values(
                     _.mapValues(val, (_val, _key) => (
                       <div
@@ -71,14 +86,14 @@ export class container extends React.PureComponent {
                       >
                         <span className="pr-2">
                           {!_val.selected ? (
-                            <i class="far fa-circle text-muted" />
+                            <i class="far fa-circle text-lgray" />
                           ) : (
-                            <i class="far fa-check-circle text-primary" />
+                            <i class="far fa-check-circle text-orange" />
                           )}
                         </span>
                         <span
                           className={
-                            !_val.selected ? "text-muted" : "text-dark"
+                            !_val.selected ? "text-lgray" : "text-dark"
                           }
                         >
                           {_val.text}
@@ -87,14 +102,60 @@ export class container extends React.PureComponent {
                     ))
                   )}
                 </div>
-                <div className="col-md-2">?</div>
-                <div className="col-md-12">
-                  <hr />
+                <div
+                  id={`help_${key}`}
+                  className="col-md-2 col-xs-2 text-center border-left"
+                >
+                  <i className="mt-4 fas fa-question text-orange" />
                 </div>
+                {self.renderHelpTip(self, key, `help_${key}`)}
+                {!("styling" === key) && (
+                  <div className="col-md-12">
+                    <hr />
+                  </div>
+                )}
               </div>
             );
           })
         )}
+      </div>
+    );
+  }
+
+  renderHelpTip(self, key, targetId) {
+    const helpText = _.get(helpContent, key, null);
+    return !helpText ? null : (
+      <UncontrolledTooltip placement="left" target={targetId}>
+        {helpText}
+      </UncontrolledTooltip>
+    );
+  }
+
+  renderColors(self, colors) {
+    return !_.get(
+      self.state,
+      ["options", "styling", "custom", "selected"],
+      false
+    ) ? null : (
+      <div className="row">
+        <div className="col-md-12">
+          <hr />
+        </div>
+        {_.map(colors, (o, i) => (
+          <ColorBlock className="col col-md-6" key={`color_${i}`}>
+            <div>{o.label}</div>
+            <div
+              className="mt-2"
+              style={{
+                backgroundColor: o.value,
+                height: "60px",
+                border: "1px solid #b2b2b2",
+                borderRadius: "9px"
+              }}
+            />
+            <div className="value mt-3">{o.value}</div>
+          </ColorBlock>
+        ))}
       </div>
     );
   }
@@ -105,6 +166,10 @@ export class container extends React.PureComponent {
     return (
       <Master currentStep={1} headerText="Configuration Options">
         {self.renderOptions(self)}
+        {self.renderColors(self, [
+          { label: "Primary Color", value: "#FF4700" },
+          { label: "Secondary Color", value: "#FFFFFF" }
+        ])}
       </Master>
     );
   }

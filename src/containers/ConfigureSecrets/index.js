@@ -2,7 +2,6 @@ import React from "react";
 import { Input } from "reactstrap";
 
 import Master from "../Master";
-import StepNavigator from "../../components/StepNavigator";
 
 const container = () => {
   return (
