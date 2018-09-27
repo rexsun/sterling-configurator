@@ -43,7 +43,7 @@ export default function reduxCompose(
 ) {
   const propTypes = {};
   _.forIn(mapState, (val, key) => {
-    _.set(propTypes, key, _.get(mapState, [val, "type"], PropTypes.object));
+    _.set(propTypes, key, _.get(mapState, [key, "type"], PropTypes.object));
   });
   _.forIn(mapDispatch, (val, key) => {
     _.set(propTypes, key, PropTypes.func);

@@ -3,7 +3,7 @@ import { createReducer } from "../../utils/helpers";
 import { SETCURRENTSTEP } from "./constants";
 
 export const localState = {
-  currentStep: 1,
+  currentStep: "1",
   configuration: {}
 };
 

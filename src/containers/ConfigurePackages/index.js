@@ -154,7 +154,7 @@ export class container extends React.PureComponent {
       <div key={key}>
         <StyledWrapper>
           <span className="pr-2">
-            <i class="fas fa-check-circle text-orange" />
+            <i className="fas fa-check-circle text-orange" />
           </span>
           <span className="text-dark">{text}</span>
         </StyledWrapper>

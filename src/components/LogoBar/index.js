@@ -37,7 +37,7 @@ const component = props => {
 
   return (
     <StyledWrapper className={className}>
-      <div class="row">
+      <div className="row">
         <div className="col text-right label">POWERED BY</div>
         <div className="col text-right logo">
           <img src="/logo.jpg" />

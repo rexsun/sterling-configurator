@@ -86,9 +86,9 @@ export class container extends React.PureComponent {
                       >
                         <span className="pr-2">
                           {!_val.selected ? (
-                            <i class="far fa-circle text-lgray" />
+                            <i className="far fa-circle text-lgray" />
                           ) : (
-                            <i class="far fa-check-circle text-orange" />
+                            <i className="far fa-check-circle text-orange" />
                           )}
                         </span>
                         <span
