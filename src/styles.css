@@ -37,6 +37,10 @@
   position: relative;
 }
 
+#root .sterling-configurator .nav-item .tooltip.show {
+  opacity: 1;
+}
+
 #root .sterling-configurator .nav-item .tooltip.bs-tooltip-top .arrow {
   position: relative;
   margin: auto;

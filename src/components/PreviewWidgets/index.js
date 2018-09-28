@@ -310,8 +310,7 @@ export default class PreviewWidgets extends React.PureComponent {
                 {scriptTemplate(_.get(items, [selectedIndex, "params"], {}))}
               </PreviewScript>
             ) : (
-              <div>
-                <h4 className="text-center mt-3">WIDGET PREVIEW</h4>
+              <div className="my-3">
                 <div
                   id={`widget_review_${tabKey}`}
                   className="slide-injector"
