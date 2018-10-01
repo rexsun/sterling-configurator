@@ -24,7 +24,7 @@ const defaultOptions = {
     no: { text: "No Fingerprinting", selected: false }
   },
   styling: {
-    inherent: { text: "Inherent Styles", selected: false },
+    inherent: { text: "Inherit Styles", selected: false },
     custom: { text: "Custom Styles", selected: true }
   }
 };
