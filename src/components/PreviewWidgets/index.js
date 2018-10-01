@@ -215,15 +215,21 @@ export default class PreviewWidgets extends React.PureComponent {
           new $JssorSlider$(`widget_review_${idx}_slide`, options);
         }, 200);
     }, 500);
+
+    self.do$initClip = () => {
+      const cbCtrl = new ClipboardJS(".btnCopy");
+    };
   }
 
   componentDidMount() {
     this.do$loadScript("loaded");
+    this.do$initClip();
   }
 
   componentDidUpdate() {
     this.do$loadScript("loading");
     this.do$initSlider();
+    this.do$initClip();
   }
 
   renderDropDown(self) {
@@ -292,6 +298,7 @@ export default class PreviewWidgets extends React.PureComponent {
       <TabPane key={`preview_${tabKey}`} tabId={tabKey}>
         <div className="row">
           <div className="col-md-12">
+            {/*
             <div className="text-center">
               <Btn
                 className={classnames({
@@ -305,8 +312,9 @@ export default class PreviewWidgets extends React.PureComponent {
                 {!widgetView ? "SCRIPT PREVIEW" : "WIDGET PREVIEW"}
               </Btn>
             </div>
+            */}
             {!widgetView ? (
-              <PreviewScript id={`code_review_${tabKey}`} className="mt-3">
+              <PreviewScript id={`code_review_${tabKey}`}>
                 {scriptTemplate(_.get(items, [selectedIndex, "params"], {}))}
               </PreviewScript>
             ) : (
@@ -317,6 +325,15 @@ export default class PreviewWidgets extends React.PureComponent {
                 />
               </div>
             )}
+            <div className="text-center mb-3">
+              <Btn
+                className="btn btn-info btnCopy"
+                data-clipboard-target={`#code_review_${tabKey}`}
+                style={{ width: "100%" }}
+              >
+                COPY TO CLIPBOARD
+              </Btn>
+            </div>
           </div>
         </div>
       </TabPane>
@@ -332,7 +349,7 @@ export default class PreviewWidgets extends React.PureComponent {
           <div className="col-md-12 mt-2">
             <PageHeaderLabel className="gray" text="Workflow Preview" />
           </div>
-          <div className="col-md-12 mt-2">
+          <div className="col-md-12">
             {/*self.renderDropDown(self)*/}
             {self.renderTabContents(self)}
           </div>

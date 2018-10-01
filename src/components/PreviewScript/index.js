@@ -10,8 +10,10 @@ const component = styled.pre`
   padding: 15px;
   position: relative;
   z-index: 0;
+  overflow: hidden;
 
   &:before {
+    width: 900px;
     content: "";
     position: absolute;
     z-index: -1;

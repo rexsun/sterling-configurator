@@ -6,7 +6,7 @@ import { Input } from "reactstrap";
 import Master from "../Master";
 
 const FixedHeightContainer = styled.div`
-  height: 330px;
+  height: 320px;
   overflow: scroll;
   border: 2px solid #eee;
   padding: 20px;
@@ -20,15 +20,13 @@ const container = () => {
         <div className="mt-3">
           This SterlingNow Service Agreement (this “Agreement”) is entered into
           by and between Sterling Infosystems, Inc. dba Sterling Talent
-          Solutions with offices located at 1 State Street Plaza, 24th
-        </div>
-        <div className="mt-3">
-          Floor, New York, NY 10004 (“Sterling”) and you or the entity on whose
-          behalf you are accepting this Agreement, as applicable (“Client”,
-          “You”, or “Your”). This Agreement sets forth the terms and conditions
-          that govern Your access to and use of the SterlingNow platform
-          (“Platform”) and the Sterling screening services available via the
-          Platform (“Services”).
+          Solutions with offices located at 1 State Street Plaza, 24th Floor,
+          New York, NY 10004 (“Sterling”) and you or the entity on whose behalf
+          you are accepting this Agreement, as applicable (“Client”, “You”, or
+          “Your”). This Agreement sets forth the terms and conditions that
+          govern Your access to and use of the SterlingNow platform (“Platform”)
+          and the Sterling screening services available via the Platform
+          (“Services”).
         </div>
         <div className="mt-3">
           BY CHECKING THE BOX INDICATING ACCEPTANCE OF THIS AGREEMENT AND
