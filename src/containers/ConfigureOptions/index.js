@@ -24,16 +24,17 @@ const defaultOptions = {
     no: { text: "No Fingerprinting", selected: false }
   },
   styling: {
-    inherent: { text: "Inherent Styling", selected: false },
-    custom: { text: "Custom Styling", selected: true }
+    inherent: { text: "Inherent Styles", selected: false },
+    custom: { text: "Custom Styles", selected: true }
   }
 };
 
 const helpContent = {
-  host: "Where do you want to host the code?",
-  pay: "How would you like to pay for the screenings?",
-  finterPrinting: "Would you like to include the FingerPrinting feature?",
-  styling: "How would you style the widgets?"
+  host: "",
+  pay:
+    "Select who will pay for the background screen, the candidate or company.",
+  finterPrinting: "",
+  styling: ""
 };
 
 const ColorBlock = styled.div`

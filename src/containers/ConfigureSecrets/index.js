@@ -5,7 +5,7 @@ import Master from "../Master";
 
 const container = () => {
   return (
-    <Master currentStep={4} headerText="Request API Key">
+    <Master currentStep={4} headerText="Request Web Token">
       <div className="mt-3">
         <Input
           type="text"
