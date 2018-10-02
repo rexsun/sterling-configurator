@@ -18,6 +18,8 @@ import PreviewScript from "../PreviewScript";
 import Btn from "../Btn";
 import PageHeaderLabel from "../../components/PageHeaderLabel";
 
+const {$JssorArrowNavigator$, $JssorSlider$, ClipboardJS} = window;
+  
 const items = [
   { text: "Select a workflow" },
   {
@@ -187,6 +189,7 @@ export default class PreviewWidgets extends React.PureComponent {
 
     self.do$loadScript = _.throttle(cls => {
       const idx = _.get(self.state, "selectedIndex", "1");
+      const $ = window.jQuery;
       const dom = $(`#code_review_${idx}`);
       dom.removeClass("loaded");
       dom.removeClass("loading");
@@ -197,6 +200,7 @@ export default class PreviewWidgets extends React.PureComponent {
 
     self.do$initSlider = _.throttle(() => {
       const idx = _.get(self.state, "selectedIndex", "1");
+      const $ = window.jQuery;
       const inited = renderSlide(
         $(`#widget_review_${idx}`),
         _.get(widgetImages, [idx], [])

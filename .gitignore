@@ -1,0 +1,11 @@
+# auto-generated
+coverage
+build
+node_modules
+stats.json
+
+# Other Files
+.DS_Store
+npm-debug.log
+.idea
+yarn.lock
