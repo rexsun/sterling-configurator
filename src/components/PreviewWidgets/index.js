@@ -42,7 +42,9 @@ const items = [
   }
 ];
 
-const scriptTemplate = _.template(`<script>
+const scriptTemplate = _.template(`
+<div id="sterlingWidget">---- SterlingNOW widget ----</div>
+<script>
 var partnerName = 'Demo';
 function initWidget() {        
     var config = new sterlingts.Config(accessToken);
@@ -74,8 +76,8 @@ function initWidget() {
 
     workflow.initialize();
 }
+now_loadScript("http://dev.app.sterling.io/js/sterling.js?callback=initWidget");
 </script>
-<script src="http://dev.app.sterling.io/js/sterling.js?callback=initWidget"></script>
 `);
 
 const widgetImageHost =
