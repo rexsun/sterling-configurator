@@ -40,7 +40,7 @@ const component = props => {
       <div className="row">
         <div className="col text-right label">POWERED BY</div>
         <div className="col text-right logo">
-          <img src="/logo.jpg" />
+          <img src="https://www.sterlingnow.io/wp-content/uploads/2018/10/widget-logo.jpg" />
         </div>
       </div>
     </StyledWrapper>
